@@ -4,7 +4,7 @@
 # ============================================================================
 
 setup() {
-  export RELAY_HOME="$BATS_TEST_DIRNAME/../src/lib"
+  export RELAY_HOME="$BATS_TEST_DIRNAME/../../src/lib"
   export RELAY_DIR="$BATS_TEST_TMPDIR/relay-cards"
   mkdir -p "$RELAY_DIR"
 

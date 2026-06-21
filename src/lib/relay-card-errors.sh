@@ -32,6 +32,8 @@ relay_trap_init() {
 
 # 记录一条错误
 relay_log_error() {
+  # trap ERR 触发时进入, 关掉 set -e 防递归
+  set +e +E
   local script="$1"
   local exit_code="$2"
   local cmd="$3"

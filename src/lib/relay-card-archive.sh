@@ -59,10 +59,10 @@ fi
 mkdir -p "$ARCHIVE_DIR" "$COMPRESSED_DIR"
 
 # === 统计 ===
-ACTIVE_COUNT=$(ls -1 "$RELAY_DIR"/[0-9]*.md 2>/dev/null | wc -l | tr -d ' ')
-ARCHIVE_COUNT=$(find "$ARCHIVE_DIR" -mindepth 2 -maxdepth 2 -name "*.md" -type f 2>/dev/null | wc -l | tr -d ' ')
-COMPRESSED_COUNT=$(ls -1 "$COMPRESSED_DIR"/*.md.gz 2>/dev/null | wc -l | tr -d ' ')
-BAK_COUNT=$(ls -1 "$RELAY_DIR"/*.bak.* 2>/dev/null | wc -l | tr -d ' ')
+ACTIVE_COUNT=$(ls -1 "$RELAY_DIR"/[0-9]*.md 2>/dev/null | wc -l | tr -d ' ' || true)
+ARCHIVE_COUNT=$(find "$ARCHIVE_DIR" -mindepth 2 -maxdepth 2 -name "*.md" -type f 2>/dev/null | wc -l | tr -d ' ' || true)
+COMPRESSED_COUNT=$(ls -1 "$COMPRESSED_DIR"/*.md.gz 2>/dev/null | wc -l | tr -d ' ' || true)
+BAK_COUNT=$(ls -1 "$RELAY_DIR"/*.bak.* 2>/dev/null | wc -l | tr -d ' ' || true)
 TOTAL_SIZE=$(du -sh "$RELAY_DIR" 2>/dev/null | awk '{print $1}')
 
 echo "════════════════════════════════════════"
@@ -84,21 +84,31 @@ if [ "$DRY_RUN" = "1" ]; then
 fi
 
 # === Step 1: 活跃 → 归档 ===
+# KEEP_ACTIVE 指的是"非 pin 的最大保留数"; pin 卡永远不归档
 MOVED_ARCHIVE=0
 if [ "$ACTIVE_COUNT" -gt "$KEEP_ACTIVE" ]; then
   echo "════════════════════════════════════════"
-  echo "📦 归档 (超过 $KEEP_ACTIVE 张的旧卡)"
+  echo "📦 归档 (超过 $KEEP_ACTIVE 张的旧卡, pin 卡永不动)"
   echo "════════════════════════════════════════"
-  CARDS_SORTED=$(ls -1 "$RELAY_DIR"/[0-9]*.md 2>/dev/null | sort -r)
-  i=0
+  CARDS_SORTED=$(ls -1 "$RELAY_DIR"/[0-9]*.md 2>/dev/null | sort -r || true)
+  # 统计 pin 数量, KEEP_ACTIVE 减去 pin 后是 "非 pin 保留位"
+  PIN_COUNT=$(ls -1 "$RELAY_DIR"/[0-9]*.md.pin 2>/dev/null | wc -l | tr -d ' ' || true)
+  PIN_COUNT="${PIN_COUNT:-0}"
+  NON_PIN_KEEP=$((KEEP_ACTIVE - PIN_COUNT))
+  # 如果 pin 已占满 KEEP_ACTIVE, 非 pin 全归档
+  if [ "$NON_PIN_KEEP" -lt 0 ]; then NON_PIN_KEEP=0; fi
+  # 非 pin 卡在 sort 后, 按"非 pin 内的位置"判定
+  NON_PIN_IDX=0
   while IFS= read -r f; do
     [ -z "$f" ] && continue
-    i=$((i+1))
-    if [ "$i" -le "$KEEP_ACTIVE" ]; then
-      continue
-    fi
+    # pin 卡永远不归档
     if [ -f "${f}.pin" ]; then
       echo "  📌 keep (pinned): $(basename "$f")"
+      continue
+    fi
+    NON_PIN_IDX=$((NON_PIN_IDX+1))
+    # 保留前 NON_PIN_KEEP 张非 pin
+    if [ "$NON_PIN_IDX" -le "$NON_PIN_KEEP" ]; then
       continue
     fi
     bn=$(basename "$f")
