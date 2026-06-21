@@ -12,7 +12,7 @@
 ## 快速开始
 
 ```bash
-git clone https://github.com/yourname/relay-card.git
+git clone https://github.com/Mars535821089-ops/Relay-Card.git
 cd relay-card
 make install   # 装到 ~/.relay-card/ 软链
 make test      # 跑单元测试
@@ -67,7 +67,7 @@ make test-integration    # 端到端
 
 ## 报告 Bug
 
-[GitHub Issues](https://github.com/yourname/relay-card/issues) 提单时附：
+[GitHub Issues](https://github.com/Mars535821089-ops/Relay-Card/issues) 提单时附：
 
 - 你的 OS + Bash 版本（`bash --version`）
 - Relay Card 版本（`bash relay-card.sh --version` 如果有）

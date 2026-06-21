@@ -23,7 +23,7 @@
 
 set -euo pipefail
 
-RELAY_HOME="${RELAY_HOME:-$HOME/.relay-card/hooks}"
+RELAY_HOME="${RELAY_HOME:-$HOME/.claude/hooks}"
 RELAY_DIR="${RELAY_DIR:-$HOME/.relay-cards}"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 

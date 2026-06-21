@@ -13,7 +13,7 @@
 
 set -euo pipefail
 
-RELAY_HOME="${RELAY_HOME:-$HOME/.relay-card/hooks}"
+RELAY_HOME="${RELAY_HOME:-$HOME/.claude/hooks}"
 RELAY_DIR="${RELAY_DIR:-$HOME/.relay-cards}"
 CORE_WRITE="$RELAY_HOME/relay-card-write.sh"
 

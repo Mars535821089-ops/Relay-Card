@@ -12,7 +12,7 @@
 #   - 不修改任何其它字段
 #
 # 用法:
-#   curl -fsSL https://raw.githubusercontent.com/yourname/relay-card/main/scripts/install.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/Mars535821089-ops/Relay-Card/main/scripts/install.sh | bash
 #   bash scripts/install.sh                # 默认安装
 #   bash scripts/install.sh --uninstall    # 卸载
 #   bash scripts/install.sh --dry-run      # 看会做什么

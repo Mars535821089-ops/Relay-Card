@@ -25,7 +25,7 @@
 
 ```bash
 # 1. 克隆
-git clone https://github.com/yourname/relay-card.git
+git clone https://github.com/Mars535821089-ops/Relay-Card.git
 cd relay-card
 
 # 2. 安装

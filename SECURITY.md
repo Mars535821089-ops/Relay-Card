@@ -58,7 +58,7 @@ Email: [security contact TBD]  →  48 小时内首次响应
 | `relay-card-sanitize.sh` | 恶意 markdown | 只读 + 写新文件，不原地改直到备份完成 |
 | `relay-card-archive.sh` | 路径遍历 | 文件名限制 `[0-9]*.md` glob，pin 检查 |
 | `relay-card-restore.sh` | 输出注入 | system message 走 JSON dump，特殊字符自动转义 |
-| 归档压缩 | gzip 炸弹 | 单文件大小限制（待实现，#TODO） |
+| 归档压缩 | gzip 炸弹 | 单文件大小限制（已知限制，将在 v0.7 加固） |
 
 ## 致谢
 

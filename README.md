@@ -20,7 +20,7 @@
 
 ```bash
 # 一键安装
-curl -fsSL https://raw.githubusercontent.com/yourname/relay-card/main/scripts/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/Mars535821089-ops/Relay-Card/main/scripts/install.sh | bash
 
 # 验证安装
 bash ~/.claude/hooks/relay-card.sh --test   # 跑一次自检
