@@ -28,8 +28,8 @@ DRY_RUN=0
 PURGE=0
 case "${1:-}" in
   --dry-run) DRY_RUN=1 ;;
-  --purge)   PURGE=1 ;;
-  --help|-h)
+  --purge) PURGE=1 ;;
+  --help | -h)
     sed -n '2,16p' "$0"
     exit 0
     ;;

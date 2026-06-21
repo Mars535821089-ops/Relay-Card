@@ -35,12 +35,27 @@ STATS_ONLY=0
 
 while [ $# -gt 0 ]; do
   case "$1" in
-    --dry-run) DRY_RUN=1; shift ;;
-    --keep) KEEP_ACTIVE="$2"; shift 2 ;;
-    --max-age) MAX_AGE_DAYS="$2"; shift 2 ;;
-    --compress) COMPRESS=1; shift ;;
-    --stats) STATS_ONLY=1; shift ;;
-    --help|-h)
+    --dry-run)
+      DRY_RUN=1
+      shift
+      ;;
+    --keep)
+      KEEP_ACTIVE="$2"
+      shift 2
+      ;;
+    --max-age)
+      MAX_AGE_DAYS="$2"
+      shift 2
+      ;;
+    --compress)
+      COMPRESS=1
+      shift
+      ;;
+    --stats)
+      STATS_ONLY=1
+      shift
+      ;;
+    --help | -h)
       sed -n '2,25p' "$0"
       exit 0
       ;;
@@ -106,7 +121,7 @@ if [ "$ACTIVE_COUNT" -gt "$KEEP_ACTIVE" ]; then
       echo "  📌 keep (pinned): $(basename "$f")"
       continue
     fi
-    NON_PIN_IDX=$((NON_PIN_IDX+1))
+    NON_PIN_IDX=$((NON_PIN_IDX + 1))
     # 保留前 NON_PIN_KEEP 张非 pin
     if [ "$NON_PIN_IDX" -le "$NON_PIN_KEEP" ]; then
       continue
@@ -121,8 +136,8 @@ if [ "$ACTIVE_COUNT" -gt "$KEEP_ACTIVE" ]; then
     else
       echo "  → $year_month/$bn  (dry-run)"
     fi
-    MOVED_ARCHIVE=$((MOVED_ARCHIVE+1))
-  done <<< "$CARDS_SORTED"
+    MOVED_ARCHIVE=$((MOVED_ARCHIVE + 1))
+  done <<<"$CARDS_SORTED"
 fi
 
 # === Step 2: 归档 → 压缩 ===
@@ -140,7 +155,7 @@ if [ "$COMPRESS" = "1" ] && [ -d "$ARCHIVE_DIR" ]; then
     bn=$(basename "$f")
     target="$COMPRESSED_DIR/${bn}.gz"
     if [ "$DRY_RUN" = "0" ]; then
-      if gzip -c "$f" > "$target" 2>/dev/null; then
+      if gzip -c "$f" >"$target" 2>/dev/null; then
         rm -f "$f"
         echo "  ✅ gzip → _compressed/${bn}.gz"
       else
@@ -149,7 +164,7 @@ if [ "$COMPRESS" = "1" ] && [ -d "$ARCHIVE_DIR" ]; then
     else
       echo "  → _compressed/${bn}.gz  (dry-run)"
     fi
-    MOVED_COMPRESSED=$((MOVED_COMPRESSED+1))
+    MOVED_COMPRESSED=$((MOVED_COMPRESSED + 1))
   done
 fi
 
@@ -166,16 +181,16 @@ if [ "$BAK_COUNT" -gt 0 ]; then
     else
       echo "  🗑️  $(basename "$f")  (dry-run)"
     fi
-    CLEANED_BAK=$((CLEANED_BAK+1))
+    CLEANED_BAK=$((CLEANED_BAK + 1))
   done
 fi
 
 # === 写 stamp ===
 if [ "$DRY_RUN" = "0" ]; then
-  date -u +"%Y-%m-%dT%H:%M:%SZ archive keep=${KEEP_ACTIVE} max_age=${MAX_AGE_DAYS}d compress=${COMPRESS}" > "$STAMP"
+  date -u +"%Y-%m-%dT%H:%M:%SZ archive keep=${KEEP_ACTIVE} max_age=${MAX_AGE_DAYS}d compress=${COMPRESS}" >"$STAMP"
 
   LAST_ARCHIVE_JSON="$RELAY_DIR/.last-archive.json"
-  cat > "$LAST_ARCHIVE_JSON" <<EOF
+  cat >"$LAST_ARCHIVE_JSON" <<EOF
 {
   "ts": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
   "active": $ACTIVE_COUNT,

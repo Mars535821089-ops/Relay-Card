@@ -32,8 +32,7 @@ if [ "${1:-}" = "--test" ]; then
     'OPENAI_API_KEY=sk-proj-xxxxxxxxxxxxx' \
     'AKIA1234567890ABCDEF' \
     'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjMifQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c' \
-    'Normal text without secrets, like /home/user/project/main.py'
-  do
+    'Normal text without secrets, like /home/user/project/main.py'; do
     result=$(echo "$tc" | python3 "$PY_CORE" 2>/dev/null)
     echo "INPUT : $tc"
     echo "OUTPUT: $result"
@@ -49,7 +48,7 @@ if [ -n "$INPUT_FILE" ] && [ -f "$INPUT_FILE" ]; then
   BACKUP="${INPUT_FILE}.bak.$(date +%Y%m%d-%H%M%S)"
   cp "$INPUT_FILE" "$BACKUP"
   TMP="${INPUT_FILE}.tmp.$$"
-  if python3 "$PY_CORE" < "$INPUT_FILE" > "$TMP" 2> >(tee -a "$LOG_FILE" >&2); then
+  if python3 "$PY_CORE" <"$INPUT_FILE" >"$TMP" 2> >(tee -a "$LOG_FILE" >&2); then
     mv -f "$TMP" "$INPUT_FILE"
     echo "[sanitize] $INPUT_FILE 已脱敏 (备份: $BACKUP)" >&2
   else

@@ -33,8 +33,8 @@ DRY_RUN=0
 UNINSTALL=0
 case "${1:-}" in
   --uninstall) UNINSTALL=1 ;;
-  --dry-run)   DRY_RUN=1 ;;
-  --help|-h)
+  --dry-run) DRY_RUN=1 ;;
+  --help | -h)
     sed -n '2,18p' "$0"
     exit 0
     ;;
@@ -68,15 +68,22 @@ fi
 
 # === Pre-flight checks ===
 say "Pre-flight checks"
-command -v bash >/dev/null 2>&1 || { echo "❌ 需要 bash"; exit 1; }
-command -v python3 >/dev/null 2>&1 || { echo "❌ 需要 python3"; exit 1; }
+command -v bash >/dev/null 2>&1 || {
+  echo "❌ 需要 bash"
+  exit 1
+}
+command -v python3 >/dev/null 2>&1 || {
+  echo "❌ 需要 python3"
+  exit 1
+}
 BASH_VER=$(bash -c 'echo ${BASH_VERSION}' | cut -d. -f1)
 if [ "${BASH_VER:-0}" -lt 4 ]; then
   echo "⚠️  bash 4+ 推荐 (你的是 $BASH_VER), 老版本可能部分功能不工作"
 fi
 PY_VER=$(python3 -c 'import sys; print(sys.version_info[0])')
 if [ "${PY_VER:-0}" -lt 3 ]; then
-  echo "❌ 需要 python 3+"; exit 1
+  echo "❌ 需要 python 3+"
+  exit 1
 fi
 
 # === Step 1: 准备目录 ===

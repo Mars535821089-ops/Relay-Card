@@ -75,10 +75,10 @@ else
 fi
 
 CARD_FILE="$CARD_FILE" \
-BRANCH="$BRANCH" \
-PROJECT_NAME="$PROJECT_NAME" \
-KEYWORDS="$KEYWORDS" \
-python3 <<'PYEOF'
+  BRANCH="$BRANCH" \
+  PROJECT_NAME="$PROJECT_NAME" \
+  KEYWORDS="$KEYWORDS" \
+  python3 <<'PYEOF'
 import json, os
 out = {
     "systemMessage": f"🏃 接力卡已生成: {os.environ['CARD_FILE']}",

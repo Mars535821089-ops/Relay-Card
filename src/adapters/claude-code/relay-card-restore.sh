@@ -29,7 +29,7 @@ if [ -z "$TOP_FILE" ] || [ ! -f "$TOP_FILE" ]; then
 fi
 
 export TOP_FILE
-python3 << 'PYEOF'
+python3 <<'PYEOF'
 import json, os
 top = os.environ["TOP_FILE"]
 bn = os.path.basename(top).replace(".md", "")

@@ -249,7 +249,7 @@ fi
 CARD_FILE="$RELAY_DIR/${TIMESTAMP}-${SESSION_ID}-${PREFIX}-${BRANCH_SAFE}.md"
 
 # === 写卡片 ===
-cat > "$CARD_FILE" <<EOF
+cat >"$CARD_FILE" <<EOF
 # 🏃 接力任务卡 / Relay Task Card
 
 > ⏰ **写入方式**: $([ "$MODE" = "--auto" ] && echo "自动快照" || echo "主动调用")
@@ -314,7 +314,8 @@ $([ -n "$DIFF_STAT" ] && echo "$DIFF_STAT" || echo "(无 diff)")
 $RECENT_LOG
 \`\`\`
 
-$([ -n "$RECENT_FILES" ] && cat <<FILES
+$(
+  [ -n "$RECENT_FILES" ] && cat <<FILES
 
 ### 最近 2 小时编辑过的文件
 $RECENT_FILES
@@ -351,7 +352,7 @@ fi
 SANITIZER="$SCRIPT_DIR/relay-card-sanitize.sh"
 if [ -x "$SANITIZER" ]; then
   TMP_CLEAN="${CARD_FILE}.clean.$$"
-  if bash "$SANITIZER" < "$CARD_FILE" > "$TMP_CLEAN" 2>/dev/null; then
+  if bash "$SANITIZER" <"$CARD_FILE" >"$TMP_CLEAN" 2>/dev/null; then
     mv -f "$TMP_CLEAN" "$CARD_FILE"
   else
     rm -f "$TMP_CLEAN"

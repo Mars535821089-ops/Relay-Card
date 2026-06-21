@@ -5,8 +5,11 @@ set -euo pipefail
 
 LEVEL="${1:-patch}"
 case "$LEVEL" in
-  patch|minor|major) ;;
-  *) echo "用法: $0 [patch|minor|major]"; exit 1 ;;
+  patch | minor | major) ;;
+  *)
+    echo "用法: $0 [patch|minor|major]"
+    exit 1
+    ;;
 esac
 
 if [ ! -d .git ]; then

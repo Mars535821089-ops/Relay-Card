@@ -26,7 +26,7 @@ TMP="${LATEST}.tmp.$$"
   i=0
   echo "$CARDS" | while IFS= read -r f; do
     [ -z "$f" ] && continue
-    i=$((i+1))
+    i=$((i + 1))
     bn=$(basename "$f")
     time_label=$(echo "$bn" | sed -E 's/^([0-9]{4})([0-9]{2})([0-9]{2})-([0-9]{2})([0-9]{2})([0-9]{2}).*/\1-\2-\3 \4:\5:\6/')
     project=$(grep -oE '项目根.*`[^`]+' "$f" 2>/dev/null | head -1 | sed -E 's/.*`([^`]+).*/\1/' | xargs basename 2>/dev/null || true)
@@ -51,7 +51,7 @@ TMP="${LATEST}.tmp.$$"
   echo "**操作指南:**"
   echo "- 让 AI 读最新一张卡: \`~/.relay-cards/latest.md\`"
   echo "- 或直接读路径里那张完整卡"
-} > "$TMP"
+} >"$TMP"
 mv -f "$TMP" "$LATEST"
 
 echo "✅ latest.md 已刷新 ($KEEP_RECENT 张)" >&2

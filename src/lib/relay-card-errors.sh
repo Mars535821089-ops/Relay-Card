@@ -44,12 +44,12 @@ relay_log_error() {
   # 写前检查行数, 超过 1000 自动 rotate (保留最近 500)
   if [ -f "$ERROR_LOG" ]; then
     local lines
-    lines=$(wc -l < "$ERROR_LOG" 2>/dev/null | tr -d ' ')
+    lines=$(wc -l <"$ERROR_LOG" 2>/dev/null | tr -d ' ')
     if [ "${lines:-0}" -gt 1000 ]; then
       local rotate_ts
       rotate_ts=$(date +%Y%m%d-%H%M%S)
       mv "$ERROR_LOG" "${ERROR_LOG}.rotated-${rotate_ts}" 2>/dev/null || true
-      tail -n 500 "${ERROR_LOG}.rotated-${rotate_ts}" > "$ERROR_LOG" 2>/dev/null || true
+      tail -n 500 "${ERROR_LOG}.rotated-${rotate_ts}" >"$ERROR_LOG" 2>/dev/null || true
     fi
   fi
   # 用 Python 输出 JSONL, 避免 shell 转义麻烦
@@ -64,9 +64,9 @@ entry = {
     'cwd': '$PWD'[:200]
 }
 print(json.dumps(entry, ensure_ascii=False))
-" >> "$ERROR_LOG" 2>/dev/null || {
+" >>"$ERROR_LOG" 2>/dev/null || {
     # Python 失败兜底
-    echo "{\"ts\":\"$ts\",\"script\":\"$script\",\"exit\":$exit_code,\"line\":\"$line\",\"cmd\":\"$(echo "$cmd" | head -c 200 | sed 's/\"/\\\"/g')\"}" >> "$ERROR_LOG"
+    echo "{\"ts\":\"$ts\",\"script\":\"$script\",\"exit\":$exit_code,\"line\":\"$line\",\"cmd\":\"$(echo "$cmd" | head -c 200 | sed 's/\"/\\\"/g')\"}" >>"$ERROR_LOG"
   }
 }
 
@@ -78,7 +78,7 @@ cmd_tail() {
     return 0
   fi
   local total
-  total=$(wc -l < "$ERROR_LOG" | tr -d ' ')
+  total=$(wc -l <"$ERROR_LOG" | tr -d ' ')
   echo "📋 最近 $n 条错误 (共 $total 条) — $ERROR_LOG"
   echo "─────────────────────────────────────────"
   tail -n "$n" "$ERROR_LOG" | python3 -c "
@@ -173,11 +173,18 @@ EOF
 # 只在直接执行时跑 CLI; source 时不跑
 if [ "${BASH_SOURCE[0]:-$0}" = "${0}" ]; then
   case "${1:-help}" in
-    tail)  shift; cmd_tail "${1:-10}" ;;
+    tail)
+      shift
+      cmd_tail "${1:-10}"
+      ;;
     stats) cmd_stats ;;
     clear) cmd_clear ;;
-    test)  cmd_test ;;
-    help|--help|-h|"") cmd_help ;;
-    *) echo "未知子命令: $1"; cmd_help; exit 1 ;;
+    test) cmd_test ;;
+    help | --help | -h | "") cmd_help ;;
+    *)
+      echo "未知子命令: $1"
+      cmd_help
+      exit 1
+      ;;
   esac
 fi

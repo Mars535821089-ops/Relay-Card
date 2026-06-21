@@ -23,7 +23,7 @@ NO_BACKUP=0
 case "${1:-}" in
   --dry-run) DRY_RUN=1 ;;
   --no-backup) NO_BACKUP=1 ;;
-  --help|-h)
+  --help | -h)
     sed -n '2,15p' "$0"
     exit 0
     ;;
@@ -58,10 +58,10 @@ CHANGED_COUNT=0
 for f in "${CARDS[@]}"; do
   TMP="${f}.scan.$$"
   REPORT="${f}.report.$$"
-  python3 "$PY_CORE" < "$f" > "$TMP" 2> "$REPORT"
+  python3 "$PY_CORE" <"$f" >"$TMP" 2>"$REPORT"
 
   if ! cmp -s "$f" "$TMP"; then
-    CHANGED_COUNT=$((CHANGED_COUNT+1))
+    CHANGED_COUNT=$((CHANGED_COUNT + 1))
     HITS=$(cat "$REPORT" 2>/dev/null || echo "")
     echo "  📝 $(basename "$f")  $HITS"
     if [ "$DRY_RUN" = "0" ]; then
@@ -81,6 +81,6 @@ done
 echo "[batch-sanitize] 完成: ${CHANGED_COUNT}/${#CARDS[@]} 张含敏感信息"
 
 if [ "$DRY_RUN" = "0" ] && [ "$CHANGED_COUNT" -gt 0 ]; then
-  date -u +"%Y-%m-%dT%H:%M:%SZ batch-sanitize ${CHANGED_COUNT}/${#CARDS[@]}" > "$STAMP"
+  date -u +"%Y-%m-%dT%H:%M:%SZ batch-sanitize ${CHANGED_COUNT}/${#CARDS[@]}" >"$STAMP"
   echo "[batch-sanitize] 写入 stamp: $STAMP"
 fi
