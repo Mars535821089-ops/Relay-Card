@@ -1,0 +1,4 @@
+#!/bin/bash
+# relay-restore — 强制恢复接力卡 (PATH 友好)
+# 内部走 relay-card-restore.sh
+exec "${RELAY_HOME:-$HOME/.claude/hooks}/relay-card-restore.sh" "$@"

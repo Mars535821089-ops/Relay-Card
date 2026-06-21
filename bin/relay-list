@@ -1,0 +1,9 @@
+#!/bin/bash
+# relay-list — 列最近接力卡 (PATH 友好)
+RELAY_DIR="${RELAY_DIR:-$HOME/.relay-cards}"
+if [ -f "$RELAY_DIR/latest.md" ]; then
+  exec cat "$RELAY_DIR/latest.md"
+else
+  echo "❌ 无接力卡: $RELAY_DIR/latest.md"
+  exit 1
+fi

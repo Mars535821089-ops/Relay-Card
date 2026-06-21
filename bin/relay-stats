@@ -1,0 +1,3 @@
+#!/bin/bash
+# relay-stats — 接力卡使用统计 (PATH 友好)
+exec "${RELAY_HOME:-$HOME/.claude/hooks}/relay-card-stats.sh" "$@"

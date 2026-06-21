@@ -1,0 +1,3 @@
+#!/bin/bash
+# relay-save — 主动存档接力卡 (PATH 友好)
+exec "${RELAY_HOME:-$HOME/.claude/hooks}/relay-card-write.sh" "$@"

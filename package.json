@@ -1,0 +1,40 @@
+{
+  "name": "relay-card",
+  "version": "0.6.0",
+  "description": "AI 上下文接力框架 — 在长任务上下文耗尽前自动存档",
+  "main": "src/lib/relay-card.sh",
+  "bin": {
+    "relay-save": "bin/relay-save",
+    "relay-restore": "bin/relay-restore",
+    "relay-list": "bin/relay-list",
+    "relay-archive": "bin/relay-archive",
+    "relay-sanitize": "bin/relay-sanitize",
+    "relay-stats": "bin/relay-stats"
+  },
+  "scripts": {
+    "test": "make test",
+    "lint": "make lint",
+    "format": "make format",
+    "install": "make install",
+    "uninstall": "make uninstall"
+  },
+  "keywords": [
+    "ai",
+    "context",
+    "session",
+    "checkpoint",
+    "continuity",
+    "claude-code",
+    "open-source"
+  ],
+  "license": "MIT",
+  "engines": {
+    "bash": ">=4.0",
+    "python": ">=3.8"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourname/relay-card.git"
+  },
+  "bugs": "https://github.com/yourname/relay-card/issues"
+}

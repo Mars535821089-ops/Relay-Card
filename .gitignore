@@ -1,0 +1,59 @@
+# OS
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.bak
+
+# Editor
+.vscode/
+.idea/
+*.iml
+*.sublime-project
+*.sublime-workspace
+
+# Shell
+*.bak
+*.tmp
+*.tmp.*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+
+# Test
+tests/fixtures/
+coverage/
+.coverage
+htmlcov/
+
+# Build / Distribution
+dist/
+build/
+*.tar.gz
+*.zip
+
+# Test artifacts (smoke test output)
+tests/fixtures/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Logs
+*.log
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# GitHub
+.github/ISSUE_TEMPLATE/
+
+# Local
+.local/
