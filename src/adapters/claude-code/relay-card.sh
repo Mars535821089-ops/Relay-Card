@@ -1,4 +1,5 @@
-#!/bin/bash# 接力任务卡生成器 (Relay Task Card Generator)
+#!/bin/bash
+
 # ============================================================================
 # 用途: 在上下文即将耗尽 / 即将 compact 之前，自动生成可交接的任务卡
 # 触发: Claude Code PreCompact hook (auto/manual)
