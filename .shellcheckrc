@@ -10,9 +10,21 @@ disable=SC1091
 # Allow our use of printf for JSON construction
 disable=SC2059
 
-# Allow non-constant source for redirects
-disable=SC1091
-
 # Allow our use of find ... -print0
 disable=SC2034
 disable=SC2155
+
+# ls parsing is OK in our context (controlled file names)
+disable=SC2012
+
+# Single-quoted expressions in grep are intentional (regex patterns)
+disable=SC2016
+
+# trap with double quotes is intentional for runtime expansion
+disable=SC2064
+
+# Word splitting on $() is intentional for install.sh flag passing
+disable=SC2046
+
+# Shebang hint when known (we use #!/bin/bash everywhere)
+shell=bash
