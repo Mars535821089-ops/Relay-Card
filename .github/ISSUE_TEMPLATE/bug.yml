@@ -1,0 +1,78 @@
+name: 🐛 Bug Report
+description: 报告一个 bug 或异常行为
+title: "[bug] "
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢你提 bug！请尽量填全下面信息，可以极大缩短复现时间。
+
+  - type: input
+    id: version
+    attributes:
+      label: Relay Card 版本
+      description: `bash ~/.claude/hooks/relay-card-stats.sh --json` 的 version 字段，或 `git rev-parse HEAD`
+      placeholder: "v0.6.0"
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: 操作系统
+      description: macOS 14.5 / Ubuntu 22.04 / WSL2 / ...
+      placeholder: "macOS 14.5"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: ai_tool
+    attributes:
+      label: AI 工具
+      description: 你用的是哪个 AI 编程助手
+      options:
+        - Claude Code
+        - Cursor
+        - Aider
+        - Cline
+        - 其它（请在描述里说明）
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: 复现步骤
+      description: 一步步描述怎么触发这个 bug
+      placeholder: |
+        1. 安装 v0.6.0
+        2. 跑 `relay-card-write.sh --auto`
+        3. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期望行为
+      description: 你觉得应该发生什么
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: 实际行为
+      description: 实际发生了什么，附 error log
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: 错误日志
+      description: `bash ~/.claude/hooks/relay-card-errors.sh tail 30` 的输出
+      render: shell
+    validations:
+      required: false

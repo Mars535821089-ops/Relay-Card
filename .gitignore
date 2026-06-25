@@ -53,7 +53,7 @@ __pycache__/
 .env.*.local
 
 # GitHub
-.github/ISSUE_TEMPLATE/
+# (was: .github/ISSUE_TEMPLATE/ — unignored 2026-06-26 to track bug/feature templates)
 
 # Local
 .local/

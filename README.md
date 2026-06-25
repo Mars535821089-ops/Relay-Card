@@ -1,5 +1,10 @@
 # Relay Card — AI 上下文接力框架
 
+[![CI](https://github.com/Mars535821089-ops/Relay-Card/actions/workflows/ci.yml/badge.svg)](https://github.com/Mars535821089-ops/Relay-Card/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/Mars535821089-ops/Relay-Card)](https://github.com/Mars535821089-ops/Relay-Card/releases)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/Mars535821089-ops/Relay-Card)](https://github.com/Mars535821089-ops/Relay-Card/stargazers)
+
 > 在 AI 长任务上下文耗尽 / compact 之前，自动生成可交接的任务卡，让下一个 session 一键接力。
 
 **Relay Card** 是一个跨 AI 工具的「上下文接力」机制：当你的 AI 编程助手（Claude Code、Cursor、Aider、Cline 等）的对话上下文即将耗尽或被压缩时，自动从对话历史、git 状态、未保存修改中提取出**当前任务、已完成、待办、关键决策、踩过的坑**，生成一张可读的接力卡；新 session 开头只要读这张卡，就能无缝衔接上下文。

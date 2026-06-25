@@ -1,0 +1,53 @@
+name: ✨ Feature Request
+description: 提一个新功能想法
+title: "[feat] "
+labels: ["enhancement", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        在提之前先搜一下 [已有 issue](https://github.com/Mars535821089-ops/Relay-Card/issues) 避免重复。
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: 你想解决什么问题？
+      description: 描述当前痛点，越具体越好
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 你的方案
+      description: 你觉得应该怎么实现？接口、CLI、配置都可以写
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: 备选方案
+      description: 还有没有别的思路？trade-off 是什么？
+    validations:
+      required: false
+
+  - type: input
+    id: use_case
+    attributes:
+      label: 用例
+      description: 一句话描述什么场景下你会用这个功能
+      placeholder: "我在跑 Claude Code 长任务时..."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: 你觉得这个功能多重要？
+      options:
+        - 🔥 阻塞我使用现有功能
+        - 🟡 重要但有 workaround
+        - 🟢 nice-to-have
+    validations:
+      required: true
