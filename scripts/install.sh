@@ -134,8 +134,12 @@ done
 # === Step 5: 配 Claude Code hooks ===
 say "Step 5: 配置 Claude Code hooks"
 if [ ! -f "$SETTINGS_FILE" ]; then
-  echo '{}' >"$SETTINGS_FILE"
-  echo "  ✓ 已创建最小 $SETTINGS_FILE (新用户场景)"
+  if [ "$DRY_RUN" = "1" ]; then
+    echo "  [DRY-RUN] 将创建最小 $SETTINGS_FILE (新用户场景)"
+  else
+    echo '{}' >"$SETTINGS_FILE"
+    echo "  ✓ 已创建最小 $SETTINGS_FILE (新用户场景)"
+  fi
 fi
 if [ -f "$SETTINGS_FILE" ]; then
   # 备份
