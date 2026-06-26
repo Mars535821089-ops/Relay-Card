@@ -134,7 +134,7 @@ done
 # === Step 5: 配 Claude Code hooks ===
 say "Step 5: 配置 Claude Code hooks"
 if [ ! -f "$SETTINGS_FILE" ]; then
-  echo '{}' > "$SETTINGS_FILE"
+  echo '{}' >"$SETTINGS_FILE"
   echo "  ✓ 已创建最小 $SETTINGS_FILE (新用户场景)"
 fi
 if [ -f "$SETTINGS_FILE" ]; then
